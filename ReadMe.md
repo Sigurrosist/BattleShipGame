@@ -16,3 +16,6 @@ Project Structure : This solution is made of 3 projects
 - GameClasses : Class Library project that contains all related classes
 - BattleShipGameTest : Unit Testing project
 - BattleShipGame : Project that runs the game using the game classes
+
+
+@Author : Judy Mok (mokjooyeon00@gmail.com) 
