@@ -11,3 +11,8 @@ Test
 Run
 - In VS, click on Start Button on the top center
 - Or, go to the project folder, \BattleShipGame\BattleShipGame\bin\Debug, and doubleclick on BattleShipGame.exe
+
+Project Structure : This solution is made of 3 projects
+- GameClasses : Class Library project that contains all related classes
+- BattleShipGameTest : Unit Testing project
+- BattleShipGame : Project that runs the game using the game classes
