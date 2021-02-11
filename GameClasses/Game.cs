@@ -19,14 +19,18 @@ namespace GameClasses
         {
             this.User1 = new User();
             this.User2 = new User();
-            history_user1 = new List<string>();
-            history_user2 = new List<string>();
-            userScore_1 = 0;
-            userScore_2 = 0;
+            History_user1 = new List<string>();
+            History_user2 = new List<string>();
+            UserScore_1 = 0;
+            UserScore_2 = 0;
         }
 
         public User User1 { get => user1; set => user1 = value; }
         public User User2 { get => user2; set => user2 = value; }
+        public List<string> History_user1 { get => history_user1; set => history_user1 = value; }
+        public List<string> History_user2 { get => history_user2; set => history_user2 = value; }
+        public int UserScore_1 { get => userScore_1; set => userScore_1 = value; }
+        public int UserScore_2 { get => userScore_2; set => userScore_2 = value; }
 
         public void Start()
         {
@@ -118,30 +122,30 @@ namespace GameClasses
             Console.ReadLine();
         }
 
-        private bool isThisAttackAlreadyTried(int usernum, string loc)
+        public bool isThisAttackAlreadyTried(int usernum, string loc)
         {
             bool alreadyTried = false;
             if (usernum == 1)
             {
-                alreadyTried = history_user1.Exists(x => x == loc);
+                alreadyTried = History_user1.Exists(x => x == loc);
             }
             else
             {
-                alreadyTried = history_user2.Exists(x => x == loc);
+                alreadyTried = History_user2.Exists(x => x == loc);
             }
 
             return alreadyTried;
         }
 
-        private bool isGameFinished(int usernum)
+        public bool isGameFinished(int usernum)
         {
             if(usernum == 1)
             {
-                if (userScore_1 > 2) return true;
+                if (UserScore_1 > 2) return true;
             }
             else
             {
-                if (userScore_2 > 2) return true;
+                if (UserScore_2 > 2) return true;
             }
             return false;
         }
@@ -149,10 +153,12 @@ namespace GameClasses
         private void printWinnerMsg(int usernum)
         {
             string username = usernum == 1 ? user1.Name : user2.Name;
+            string enemyname = usernum == 1 ? user2.Name : user1.Name;
 
             Console.WriteLine("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
             Console.WriteLine(username + " won the game! Congrats!");
             Console.WriteLine("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
+            Console.WriteLine(enemyname + " : You sunk my battleship.");
             Console.WriteLine("To quit the game, please press enter.");
             Console.ReadLine();
         }
@@ -167,11 +173,11 @@ namespace GameClasses
                 Console.WriteLine(user1.Name + ", you already have tried this attack. Please try other location name ");
                 attack = Console.ReadLine();
             }
-            history_user1.Add(attack);
+            History_user1.Add(attack);
             if (user2.UserBoard.IsValidAttack(attack))
             {
-                userScore_1++;
-                Console.WriteLine("You obtained 1 score! Your current score is " + userScore_1);
+                UserScore_1++;
+                Console.WriteLine("You obtained 1 score! Your current score is " + UserScore_1);
                 Console.ReadLine();
             }
             else
@@ -202,11 +208,11 @@ namespace GameClasses
                 Console.WriteLine(user2.Name + ", you already have tried this attack. Please try other location name ");
                 attack = Console.ReadLine();
             }
-            history_user2.Add(attack);
+            History_user2.Add(attack);
             if (user1.UserBoard.IsValidAttack(attack))
             {
-                userScore_2++;
-                Console.WriteLine("You obtained 1 score! Your current score is " + userScore_2);
+                UserScore_2++;
+                Console.WriteLine("You obtained 1 score! Your current score is " + UserScore_2);
                 Console.ReadLine();
             }
             else

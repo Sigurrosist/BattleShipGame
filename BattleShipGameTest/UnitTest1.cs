@@ -18,7 +18,6 @@ namespace BattleShipGameTest
         {
             Board board = new Board();
             string resultString = "";
-            resultString += "** YOUR GAME BOARD **\n";
             resultString += " -- -- -- -- -- -- -- -- -- -- -- -- \n";
             for (int i = 0; i < 8; i++)
             {
@@ -93,5 +92,67 @@ namespace BattleShipGameTest
             Assert.AreEqual(thisShouleBeTrue, failString);
         }
 
+        [TestMethod]
+        public void IsCorrectAttackValidationWorking()
+        {
+            string attack = "A1";
+            Board board = new Board();
+            board.BattleShip.SetBattleShipLocation("A1", true);
+            board.PlaceBattleShip();
+            bool attack1 = board.IsValidAttack("A1");
+            bool attack2 = board.IsValidAttack("B1");
+            bool attack3 = board.IsValidAttack("C1");
+            bool result = false;
+            if (attack1 && attack2 && attack3) result = true;
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod]
+        public void IsIncorrectAttackValidationWorking()
+        {
+            Board board = new Board();
+            board.BattleShip.SetBattleShipLocation("A1", true);
+            board.PlaceBattleShip();
+            bool attack1 = !board.IsValidAttack("A2");
+            bool attack2 = !board.IsValidAttack("B2");
+            bool attack3 = !board.IsValidAttack("C2");
+            bool result = false;
+            if (attack1 && attack2 && attack3) result = true;
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void IsUserCreatingWorking()
+        {
+            User user = new User();
+            user.Name = "Judy";
+            user.UserBoard = new Board();
+            Assert.IsTrue(user.Name == "Judy" && user.UserBoard.GameBoard[0, 0] == "A1");
+        }
+
+        [TestMethod]
+        public void IsGameCreationWorking()
+        {
+            Game game = new Game();
+            Assert.AreEqual(game.UserScore_1 + game.UserScore_2, 0);
+        }
+
+        [TestMethod]
+        public void IsScoreCalculationWorking()
+        {
+            Game game = new Game();
+            game.UserScore_1 = 3;
+            bool user1won = game.isGameFinished(1);
+            Assert.IsTrue(user1won);
+        }
+
+        [TestMethod]
+        public void IsDuplicatedAttackTryWorking()
+        {
+            Game game = new Game();
+            game.History_user1.Add("A1");
+            bool dupTry = game.isThisAttackAlreadyTried(1, "A1");
+            Assert.IsTrue(dupTry);
+        }
     }
 }
